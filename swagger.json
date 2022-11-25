@@ -1,0 +1,184 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Zumvet Subscription"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "user",
+      "description": "For logging in and manage users"
+    },
+    {
+      "name": "subs",
+      "description": "for subscription"
+    }
+  ],
+  "paths": {
+    "/user/signup": {
+      "post": {
+        "tags": ["user"],
+        "summary": "sign up",
+        "description": "username.length >= 3, password.length >= 5",
+        "requestBody": {
+          "description": "login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        },
+        "responses": {}
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": ["user"],
+        "summary": "login",
+        "description": "username.length >= 3, password.length >= 5",
+        "requestBody": {
+          "description": "login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        },
+        "responses": {}
+      }
+    },
+    "/user/subs": {
+      "get": {
+        "tags": ["user"],
+        "summary": "get subscription of authenticated user",
+        "description": "if not subscribed, return null",
+        "responses": {},
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/subs/add": {
+      "post": {
+        "tags": ["subs"],
+        "summary": "add subscription",
+        "description": "name.length >= 3",
+        "requestBody": {
+          "description": "added subs",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/subs"
+              }
+            }
+          }
+        },
+        "responses": {},
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/subs/": {
+      "get": {
+        "tags": ["subs"],
+        "summary": "list all availables subscription",
+        "responses": {}
+      }
+    },
+    "/subs/purchase/{subsId}": {
+      "post": {
+        "tags": ["subs"],
+        "summary": "subscribe for authenticated user",
+        "parameters": [
+          {
+            "name": "subsId",
+            "in": "path",
+            "description": "ID of subscription",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {},
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/subs/unsubscribe": {
+      "get": {
+        "tags": ["subs"],
+        "summary": "unsubscribe for of authenticated user",
+        "responses": {},
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "user": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "theUser"
+          },
+          "password": {
+            "type": "string",
+            "example": "12345"
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
+      },
+      "subs": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "ZumCare"
+          },
+          "cost": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
+      }
+    },
+    "requestBodies": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Enter the token with the `Bearer: ` prefix, e.g. Bearer abcde12345"
+      }
+    }
+  }
+}

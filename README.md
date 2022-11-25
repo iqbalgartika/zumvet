@@ -1,6 +1,6 @@
 # zumvet
 1. Run "npm install"
-2. Edit the "./util/const.js", especially DB_SCHEMA with your databse schema
+2. Edit the "./util/const.js", especially DB_SCHEMA with your MySQL databse schema
 3. Run "npm start"
 
 APIs :
@@ -12,4 +12,4 @@ APIs :
 6. POST /subs/purchase/:subsId
 7. GET /subs/unsubscribe
 
-/api-docs (soon)
+SWAGGER doc : /api-docs
